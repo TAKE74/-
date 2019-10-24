@@ -1,4 +1,3 @@
-
 //GameLで使用するヘッダー
 #include "GameL\SceneObjManager.h"
 #include "GameL\DrawTexture.h"
@@ -47,8 +46,8 @@ void CObjHero::Action()
 		Scene::SetScene(new CSceneMain());
 	}
 
-	//Xキー入力でジャンプ
-	if (Input::GetVKey('X') == true)
+	//↑キー入力でジャンプ
+	if (Input::GetVKey(VK_UP) == true)
 	{
 		if (m_hit_down == true)
 		{
@@ -63,11 +62,11 @@ void CObjHero::Action()
 
 
 
-	//Zキー入力で速度アップ
-	if (Input::GetVKey('Z') == true)
+	//SPACEキー入力で速度アップ
+	if (Input::GetVKey(VK_SPACE) == true)
 	{
        //ダッシュ時の速度
-		m_speed_power = 1.1f;
+		m_speed_power = 0.8f;
 		m_ani_max_time = 2;
 	}
 	else
@@ -77,20 +76,7 @@ void CObjHero::Action()
 		m_ani_max_time = 4;
 
 	}
-	//Aキー入力で高速移動
-	if (Input::GetVKey('A') == true)
-	{
-		//高速移動
-		if (m_vx < 50)
-		{
-
-			m_speed_power = 100.0f;//Aの速度を変える
-			m_ani_max_time = 2;
-
-		}
-
-
-	}
+	
 
 
 
@@ -127,7 +113,7 @@ void CObjHero::Action()
 	}
 
 	//摩擦
-	m_vx += -(m_vx * 0.098);
+	m_vx += -(m_vx * 0.1);
 
 	//自由落下運動
 	m_vy += 9.8 / (16.0f);
