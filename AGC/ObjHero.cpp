@@ -1,3 +1,4 @@
+
 //GameLで使用するヘッダー
 #include "GameL\SceneObjManager.h"
 #include "GameL\DrawTexture.h"
@@ -35,6 +36,9 @@ void CObjHero::Init()
 
 	 //当たり判定用のHitBoxを作成
 	 Hits::SetHitBox(this, m_px, m_py, 64, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
+
+	 //敵オブジェクトと接触したら主人公削除
+	 
 }
 //アクション
 void CObjHero::Action()
@@ -46,8 +50,8 @@ void CObjHero::Action()
 		Scene::SetScene(new CSceneMain());
 	}
 
-	//↑キー入力でジャンプ
-	if (Input::GetVKey(VK_UP) == true)
+	//Xキー入力でジャンプ
+	if (Input::GetVKey('X') == true)
 	{
 		if (m_hit_down == true)
 		{
@@ -62,11 +66,11 @@ void CObjHero::Action()
 
 
 
-	//SPACEキー入力で速度アップ
-	if (Input::GetVKey(VK_SPACE) == true)
+	//Zキー入力で速度アップ
+	if (Input::GetVKey('Z') == true)
 	{
        //ダッシュ時の速度
-		m_speed_power = 0.8f;
+		m_speed_power = 1.1f;
 		m_ani_max_time = 2;
 	}
 	else
@@ -76,7 +80,20 @@ void CObjHero::Action()
 		m_ani_max_time = 4;
 
 	}
-	
+	//Aキー入力で高速移動
+	if (Input::GetVKey('A') == true)
+	{
+		//高速移動
+		if (m_vx < 50)
+		{
+
+			m_speed_power = 100.0f;//Aの速度を変える
+			m_ani_max_time = 2;
+
+		}
+
+
+	}
 
 
 
@@ -113,7 +130,7 @@ void CObjHero::Action()
 	}
 
 	//摩擦
-	m_vx += -(m_vx * 0.1);
+	m_vx += -(m_vx * 0.098);
 
 	//自由落下運動
 	m_vy += 9.8 / (16.0f);
@@ -181,6 +198,13 @@ void CObjHero::Action()
 		//主人公が敵とどの角度で当たっているかを確認
 		HIT_DATA** hit_data;
 		hit_data = hit->SearchObjNameHit(OBJ_ENEMY);
+		//敵と接触したら削除
+		if (hit->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+		{
+			this->SetStatus(false);
+			Hits::DeleteHitBox(this);
+			return ;
+		}
 		for (int i = 0; i < hit->GetCount(); i++)
 		{
 			//敵の左右に当たったら

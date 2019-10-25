@@ -26,8 +26,14 @@ void CObjBlock::Init()
 void CObjBlock::Action()
 {    //主人公の位置を取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
+	
+	float hx = 0;
+	float hy = 0;
+	if (hero != nullptr)
+	{
+		hx = hero->GetX();
+		hy = hero->GetY();
+	}
 	//後方スクロール
 	if (hx < 80)
 	{
