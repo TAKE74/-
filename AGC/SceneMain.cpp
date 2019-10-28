@@ -71,10 +71,6 @@ void CSceneMain::InitScene()
 	CObjBlock* objb = new CObjBlock(map);
 	Objs::InsertObj(objb, OBJ_BLOCK, 9);
 
-	//タイムオブジェクト作成
-	CObjTime* objt = new CObjTime();
-	Objs::InsertObj(objt, OBJ_TIME, 11);
-	
 
 }
 

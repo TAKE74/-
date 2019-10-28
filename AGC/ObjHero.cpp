@@ -52,7 +52,7 @@ void CObjHero::Action()
 		if (m_hit_down == true)
 		{
 
-			m_vy = -20;
+			m_vy = -13;
 
 		}
 
@@ -77,8 +77,6 @@ void CObjHero::Action()
 
 	}
 	
-
-
 
 	//ƒL[‚Ì“ü—Í•ûŒü
 	if (Input::GetVKey(VK_RIGHT) == true)
