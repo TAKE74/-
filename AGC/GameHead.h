@@ -10,6 +10,7 @@ enum OBJ_NAME
 	OBJ_BLOCK,
 	OBJ_TIME,
 	OBJ_ENEMY,
+	OBJ_BULLET,
 };
 //------------------------------------------------
 
@@ -57,6 +58,7 @@ struct UserData
 #include "ObjBlock.h"
 #include "ObjTime.h"
 #include "ObjEnemy.h"
+#include "CobjBullet.h"
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------
