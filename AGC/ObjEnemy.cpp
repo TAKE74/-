@@ -130,7 +130,7 @@ void CObjEnemy::Action()
 //ÉhÉçÅ[
 void CObjEnemy::Draw()
 {
-
+	
 	int AniData[4] =
 	{
 		1,0,2,0,
