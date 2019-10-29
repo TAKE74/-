@@ -25,7 +25,7 @@ void CObjBullet::Init()
 //アクション
 void CObjBullet::Action()
 {
-	b_vx += 2.0f;
+	b_vx + 1.0f;
 	b_x += b_vx;
 
 	//領域外に出たら弾丸を破壊する
@@ -48,7 +48,6 @@ void CObjBullet::Action()
 //ドロー
 void CObjBullet::Draw()
 {
-	
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 

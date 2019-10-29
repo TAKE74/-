@@ -62,8 +62,6 @@ void CSceneMain::InitScene()
 
 	//グラフィック読み込み
 	Draw::LoadImageW(L"image.png", 0,TEX_SIZE_512);
-	
-
 
 	Draw::LoadImageW(L"背景.png", 0, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 1,TEX_SIZE_512);
