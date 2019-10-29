@@ -19,11 +19,3 @@ private:
 	float B_vx;	//ボス移動ベクトルX
 	float B_vy;	//ボス移動ベクトルY
 };
-
-CObjBoss::CObjBoss()
-{
-}
-
-CObjBoss::~CObjBoss()
-{
-}

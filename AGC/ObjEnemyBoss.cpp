@@ -49,6 +49,10 @@ void CObjBoss::Action()
 	hit->SetPos(B_x, B_y);
 
 	//ボスが完全に領域外に出たらボスを破壊する
-	bool check=
+	bool check = 1;
 	
+}
+
+void CObjBoss::Draw()
+{
 }
