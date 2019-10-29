@@ -11,7 +11,7 @@ using namespace GameL;
 class CObjBlock :public CObj
 {
 public:
-	CObjBlock(int map[10][100]);
+	CObjBlock(int map[10][35]);
 	~CObjBlock() {};
 	void Init();//イニシャライズ
 	void Action();//アクション
@@ -33,7 +33,7 @@ public:
 
 private:
 	void BlockDraw(float x, float y, RECT_F* dst, float c[]);
-	int m_map[10][100];//マップ情報（仮）
+	int m_map[10][35];//マップ情報（仮）
 
 	float m_scroll;//左右スクロール用
 
