@@ -133,6 +133,7 @@
     <ClCompile Include="ObjBlock.cpp" />
     <ClCompile Include="ObjEnemy.cpp" />
     <ClCompile Include="ObjHero.cpp" />
+    <ClCompile Include="ObjStage.cpp" />
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="SceneMain.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="ObjBlock.h" />
     <ClInclude Include="ObjEnemy.h" />
     <ClInclude Include="ObjHero.h" />
+    <ClInclude Include="ObjStage.h" />
     <ClInclude Include="ObjTime.h" />
     <ClInclude Include="SceneMain.h" />
   </ItemGroup>

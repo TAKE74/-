@@ -9,10 +9,10 @@
 //使用するネームスペース
 using namespace GameL;
 
-CObjBlock::CObjBlock(int map[10][100])
+CObjBlock::CObjBlock(int map[10][35])
 {
 	//マップデータをコピー
-	memcpy(m_map, map, sizeof(int)*(10 * 100));
+	memcpy(m_map, map, sizeof(int)*(10 * 35));
 
 }
 
@@ -56,17 +56,8 @@ void CObjBlock::Action()
 	//敵出現ラインの列を検索
 	for(int i=0;i<10;i++)
 	{
-		//列の中から4を探す
-	    if(m_map[i][ex]==4)
-		{
-	        //4があれば、敵出現
-			CObjEnemy* obje = new CObjEnemy(ex * 64.0f, i*64.0f);
-			Objs::InsertObj(obje, OBJ_ENEMY, 10);
-
-	                //敵出現場所の値を0にする
-			m_map[i][ex] = 0;
-
-	    }
+		
+	    
 	}
 	
 }
@@ -74,27 +65,29 @@ void CObjBlock::Action()
 //ドロー
 void CObjBlock::Draw()
 {
+	
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 
 	RECT_F src;//描画元切り取り位置
 	RECT_F dst;//描画先表示位置
-
+	
 	//背景表示
+	
+	
 
-	src.m_top = 256.0f;
+	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 512.0;
-	src.m_bottom = 512.0f;
+	src.m_right = .0;
+	src.m_bottom = 32.0f;
 
-
+	
 	dst.m_top = 0.0f;
 	dst.m_left = 0.0f;
-	dst.m_right = 800.0;
+	dst.m_right = 800.0f;
 	dst.m_bottom = 600.0f;
-	Draw::Draw(0, &src, &dst, c, 0.0f);
-
-
+	Draw::Draw(1, &src, &dst, c, 0.0f);
+	
 
 
 
@@ -104,7 +97,7 @@ void CObjBlock::Draw()
 	
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < 35; j++)
 		{
 			if(m_map[i][j]>0)
 			{
@@ -118,19 +111,15 @@ void CObjBlock::Draw()
 				if (m_map[i][j] == 2)
 				{
 					//スタートブロック
-					BlockDraw(320.0f + 64.0f, 0.0f, &dst, c);
+					BlockDraw(320.0f, 0.0f, &dst, c);
 				}
 				else if (m_map[i][j] == 3)
 				{
 					//ゴールブロック
-					BlockDraw(320.0f + 64.0f, 64.0f, &dst, c);
+					BlockDraw(320.0f, 0.0f, &dst, c);
 
 				}
-				else if (m_map[i][j] == 4)
-				{
-
-					;//敵配置用の番号のため何もしない
-				}
+				
 				else
 				{
 					BlockDraw(320.0f , 0.0f, &dst, c);
@@ -156,7 +145,7 @@ void CObjBlock::BlockDraw(float x, float y, RECT_F* dst, float c[])
 	src.m_right  = src.m_left + 64.0f;
 	src.m_bottom = src.m_top + 64.0f;
 	//描画
-	Draw::Draw(0, &src,  dst, c, 0.0f);
+	Draw::Draw(1, &src,  dst, c, 0.0f);
 
 
 }
@@ -196,9 +185,9 @@ void CObjBlock::BlockHit(
 	//m_mapの全要素にアクセス
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < 35; j++)
 		{
-			if (m_map[i][j] > 0&&m_map[i][j]!=4)
+			if (m_map[i][j] > 0&&m_map[i][j]!=5)
 			{
 				//要素番号を座標に変更
 				float bx = j * 64.0f;
