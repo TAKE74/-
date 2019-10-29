@@ -24,6 +24,7 @@
     <RootNamespace>AGC</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <ProjectName>チーム</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -117,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CObjBullet.cpp" />
     <ClCompile Include="GameL\Audio.cpp" />
     <ClCompile Include="GameL\DirectXDevice.cpp" />
     <ClCompile Include="GameL\Draw2DTex_Source.cpp" />
@@ -132,12 +134,14 @@
     <ClCompile Include="GameL\WinInputs.cpp" />
     <ClCompile Include="ObjBlock.cpp" />
     <ClCompile Include="ObjEnemy.cpp" />
+    <ClCompile Include="ObjEnemyBoss.cpp" />
     <ClCompile Include="ObjHero.cpp" />
     <ClCompile Include="ObjStage.cpp" />
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="SceneMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CobjBullet.h" />
     <ClInclude Include="GameHead.h" />
     <ClInclude Include="GameL\Audio.h" />
     <ClInclude Include="GameL\DirectXDevice.h" />
@@ -153,6 +157,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjBlock.h" />
     <ClInclude Include="ObjEnemy.h" />
+    <ClInclude Include="ObjEnemyBoss.h" />
     <ClInclude Include="ObjHero.h" />
     <ClInclude Include="ObjStage.h" />
     <ClInclude Include="ObjTime.h" />

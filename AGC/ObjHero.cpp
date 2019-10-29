@@ -5,6 +5,7 @@
 #include "GameHead.h"
 #include "ObjHero.h"
 #include "GameL\HitBoxManager.h"
+
 //使用するネームスペース
 using namespace GameL;
 
@@ -35,6 +36,7 @@ void CObjHero::Init()
 
 	 //当たり判定用のHitBoxを作成
 	 Hits::SetHitBox(this, m_px, m_py, 64, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
+	 m_f = true;
 }
 //アクション
 void CObjHero::Action()
@@ -60,8 +62,6 @@ void CObjHero::Action()
 
 	}
 
-
-
 	//SPACEキー入力で速度アップ
 	if (Input::GetVKey(VK_SPACE) == true)
 	{
@@ -76,10 +76,21 @@ void CObjHero::Action()
 		m_ani_max_time = 4;
 
 	}
-	
-
-
-
+	//主人公弾丸発射
+	if (Input::GetVKey('Z') == true)
+	{
+		if (m_f == true)
+		{
+			//弾丸オブジェクト作成
+			CObjBullet*obj_b = new CObjBullet(m_px+50.0f, m_py+20.0f);	//弾丸オブジェクト作成
+			Objs::InsertObj(obj_b, OBJ_BULLET, 1);	//作った弾丸オブジェクトマネージャーに登録
+			m_f = false;
+		}
+	}
+	else
+	{
+		m_f = true;
+	}
 	//キーの入力方向
 	if (Input::GetVKey(VK_RIGHT) == true)
 	{
@@ -113,7 +124,7 @@ void CObjHero::Action()
 	}
 
 	//摩擦
-	m_vx += -(m_vx * 0.1);
+	m_vx += -(m_vx * 0.098);
 
 	//自由落下運動
 	m_vy += 9.8 / (16.0f);
@@ -177,6 +188,13 @@ void CObjHero::Action()
 	CHitBox*hit = Hits::GetHitBox(this);
 	//敵と当たっているか確認
 	if (hit->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+		//敵と接触したら削除
+		if (hit->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+		{
+			this->SetStatus(false);
+			Hits::DeleteHitBox(this);
+			return;
+		}
 	{
 		//主人公が敵とどの角度で当たっているかを確認
 		HIT_DATA** hit_data;

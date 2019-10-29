@@ -119,11 +119,18 @@ void CObjEnemy::Action()
 	//HitBoxの位置の変更
 	CHitBox*hit = Hits::GetHitBox(this);
 	hit->SetPos(m_px+block->GetScroll(), m_py);
+
+	//弾丸と接触しているかどうか調べる
+	if (hit->CheckObjNameHit(OBJ_BULLET) != nullptr)
+	{
+		this->SetStatus(false);
+		Hits::DeleteHitBox(this);
+	}
 }
 //ドロー
 void CObjEnemy::Draw()
 {
-
+	
 	int AniData[4] =
 	{
 		1,0,2,0,

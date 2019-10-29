@@ -61,6 +61,10 @@ void CSceneMain::InitScene()
 	Font::SetStrTex(L"0123456789分秒");
 
 	//グラフィック読み込み
+	Draw::LoadImageW(L"image.png", 0,TEX_SIZE_512);
+	
+
+
 	Draw::LoadImageW(L"背景.png", 0, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 1,TEX_SIZE_512);
 	
@@ -76,11 +80,6 @@ void CSceneMain::InitScene()
 	//タイムオブジェクト作成
 	CObjTime* objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 11);
-
-	//ステージオブジェクト作成
-	CObjStage* objs = new CObjStage();
-	Objs::InsertObj(objs, OBJ_STAGE, 10);
-
 	
 
 }
