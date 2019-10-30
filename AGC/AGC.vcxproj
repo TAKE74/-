@@ -134,7 +134,9 @@
     <ClCompile Include="GameL\WinInputs.cpp" />
     <ClCompile Include="ObjBlock.cpp" />
     <ClCompile Include="ObjEnemy.cpp" />
-    <ClCompile Include="ObjEnemyBoss.cpp" />
+    <ClCompile Include="ObjEnemyBoss.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ObjHero.cpp" />
     <ClCompile Include="SceneMain.cpp" />
   </ItemGroup>
@@ -155,7 +157,9 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjBlock.h" />
     <ClInclude Include="ObjEnemy.h" />
-    <ClInclude Include="ObjEnemyBoss.h" />
+    <ClInclude Include="ObjEnemyBoss.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="ObjHero.h" />
     <ClInclude Include="SceneMain.h" />
   </ItemGroup>
