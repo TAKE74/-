@@ -54,7 +54,7 @@ void CObjHero::Action()
 		if (m_hit_down == true)
 		{
 
-			m_vy = -20;
+			m_vy = -13;
 
 		}
 
@@ -284,7 +284,7 @@ void CObjHero::Draw()
 	dst.m_bottom = 64.0f+m_py;
 
 	//•`‰æ
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+	Draw::Draw(1, &src, &dst, c, 0.0f);
 
 	//Œð“_
 	float  cc[4] = { 1.0f,0.0f,0.0f,1.0f };

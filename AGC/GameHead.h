@@ -12,6 +12,7 @@ enum OBJ_NAME
 	OBJ_ENEMY,
 	OBJ_BULLET,
 	OBJ_BOOS_ENEMY,
+	OBJ_STAGE,
 };
 //------------------------------------------------
 
@@ -58,8 +59,6 @@ struct UserData
 #include "ObjHero.h"
 #include "ObjBlock.h"
 #include "ObjEnemy.h"
-#include "CobjBullet.h"
-#include "ObjEnemyBoss.h"
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------

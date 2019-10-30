@@ -43,8 +43,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -138,6 +138,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ObjHero.cpp" />
+    <ClCompile Include="ObjStage.cpp" />
+    <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="SceneMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,10 +159,10 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjBlock.h" />
     <ClInclude Include="ObjEnemy.h" />
-    <ClInclude Include="ObjEnemyBoss.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="ObjEnemyBoss.h" />
     <ClInclude Include="ObjHero.h" />
+    <ClInclude Include="ObjStage.h" />
+    <ClInclude Include="ObjTime.h" />
     <ClInclude Include="SceneMain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
