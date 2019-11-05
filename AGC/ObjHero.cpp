@@ -54,7 +54,7 @@ void CObjHero::Action()
 		if (m_hit_down == true)
 		{
 
-			m_vy = -20;
+			m_vy = -13;
 
 		}
 
@@ -151,7 +151,7 @@ void CObjHero::Action()
 		px = pxx + pbb->GetScroll();
 		py = pyy;
 
-		float aa = (m_px)         -px;//  A(交点→主人公の位置)ベクトル      
+		float aa = (m_px)         -px;//  A(交点→主人公の位置)ベクトル
 		float bb = (m_px + m_vx) - px;//　B（交点→主人公の移動先位置）ベクトル
 
 		//主人公の幅分のオフセット
@@ -284,7 +284,7 @@ void CObjHero::Draw()
 	dst.m_bottom = 64.0f+m_py;
 
 	//描画
-	Draw::Draw(0, &src, &dst, c, 0.0f);
+	Draw::Draw(1, &src, &dst, c, 0.0f);
 
 	//交点
 	float  cc[4] = { 1.0f,0.0f,0.0f,1.0f };

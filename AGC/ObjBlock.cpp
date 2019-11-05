@@ -9,10 +9,10 @@
 //使用するネームスペース
 using namespace GameL;
 
-CObjBlock::CObjBlock(int map[10][100])
+CObjBlock::CObjBlock(int map[10][101])
 {
 	//マップデータをコピー
-	memcpy(m_map, map, sizeof(int)*(10 * 100));
+	memcpy(m_map, map, sizeof(int)*(10 * 101));
 
 }
 
@@ -59,26 +59,24 @@ void CObjBlock::Action()
 	int ex = ((int)line) / 64;
 
 	//敵出現ラインの列を検索
-	for(int i=0;i<10;i++)
+	for (int i = 0; i < 10; i++)
 	{
-		//列の中から4を探す
-	    if(m_map[i][ex]==4)
+		if (m_map[i][ex] == 2)
 		{
-	        //4があれば、敵出現
-			CObjEnemy* obje = new CObjEnemy(ex * 64.0f, i*64.0f);
-			Objs::InsertObj(obje, OBJ_ENEMY, 10);
+			CObjEnemy*obj = new CObjEnemy(ex*64.0f, i*64.0f);
+			Objs::InsertObj(obj, OBJ_ENEMY, 10);
 
-	                //敵出現場所の値を0にする
+
 			m_map[i][ex] = 0;
-
-	    }
+		}
 	}
-	
+
 }
 
 //ドロー
 void CObjBlock::Draw()
 {
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 
@@ -87,18 +85,19 @@ void CObjBlock::Draw()
 
 	//背景表示
 
-	src.m_top = 256.0f;
+
+
+	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 512.0;
-	src.m_bottom = 512.0f;
+	src.m_right = 0.0f;
+	src.m_bottom = 32.0f;
 
 
 	dst.m_top = 0.0f;
 	dst.m_left = 0.0f;
-	dst.m_right = 800.0;
+	dst.m_right = 800.0f;
 	dst.m_bottom = 600.0f;
-	Draw::Draw(0, &src, &dst, c, 0.0f);
-
+	Draw::Draw(1, &src, &dst, c, 0.0f);
 
 
 
@@ -106,45 +105,39 @@ void CObjBlock::Draw()
 
 	//マップチップによるblock設置
 	//切り取り位置の設定
-	
+
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < 101; j++)
 		{
-			if(m_map[i][j]>0)
+			if (m_map[i][j] > 0)
 			{
 
 				//表示位置の設定
-				dst.m_top = i*64.0f;
+				dst.m_top = i * 64.0f;
 				dst.m_left = j * 64.0f + m_scroll;
-				dst.m_right = dst.m_left+64.0;
-				dst.m_bottom = dst.m_top +64.0;
-				
+				dst.m_right = dst.m_left + 64.0;
+				dst.m_bottom = dst.m_top + 64.0;
+
 				if (m_map[i][j] == 2)
 				{
 					//スタートブロック
-					BlockDraw(320.0f + 64.0f, 0.0f, &dst, c);
+					BlockDraw(320.0f, 0.0f, &dst, c);
 				}
 				else if (m_map[i][j] == 3)
 				{
 					//ゴールブロック
-					BlockDraw(320.0f + 64.0f, 64.0f, &dst, c);
+					BlockDraw(320.0f, 0.0f, &dst, c);
 
-				}
-				else if (m_map[i][j] == 4)
-				{
-
-					;//敵配置用の番号のため何もしない
 				}
 				else
 				{
-					BlockDraw(320.0f , 0.0f, &dst, c);
-
+					BlockDraw(320.0f, 0.0f, &dst, c);
 				}
 			}
 		}
 	}
-	
+
 }
 //BlockDrawMethod関数
 //引数1 flost    x      :リソース切り取り位置X
@@ -156,12 +149,12 @@ void CObjBlock::Draw()
 void CObjBlock::BlockDraw(float x, float y, RECT_F* dst, float c[])
 {
 	RECT_F src;
-	src.m_top    = y;
-	src.m_left   = x;
-	src.m_right  = src.m_left + 64.0f;
+	src.m_top = y;
+	src.m_left = x;
+	src.m_right = src.m_left + 64.0f;
 	src.m_bottom = src.m_top + 64.0f;
 	//描画
-	Draw::Draw(0, &src,  dst, c, 0.0f);
+	Draw::Draw(1, &src, dst, c, 0.0f);
 
 
 }
@@ -190,9 +183,9 @@ void CObjBlock::BlockHit(
 
 	//衝突状態確認用フラグの初期化
 
-	*up    = false;
-	*down  = false; 
-	*left  = false;
+	*up = false;
+	*down = false;
+	*left = false;
 	*right = false;
 
 	//踏んでいるblockの種類の初期化
@@ -201,9 +194,9 @@ void CObjBlock::BlockHit(
 	//m_mapの全要素にアクセス
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < 101; j++)
 		{
-			if (m_map[i][j] > 0&&m_map[i][j]!=4)
+			if (m_map[i][j] > 0 && m_map[i][j] != 5)
 			{
 				//要素番号を座標に変更
 				float bx = j * 64.0f;
@@ -236,8 +229,8 @@ void CObjBlock::BlockHit(
 						if ((r < 45 && r>0) || r > 315)
 						{
 							//右
-							*right=true;//主人公の左の部分が衝突している
-						    *x=bx+64.0f+(scroll);//ブロックの位置+主人公の幅
+							*right = true;//主人公の左の部分が衝突している
+							*x = bx + 64.0f + (scroll);//ブロックの位置+主人公の幅
 							*vx = -(*vx)*0.1f;;//－vx*反発係数
 
 
@@ -245,29 +238,29 @@ void CObjBlock::BlockHit(
 						if (r > 45 && r < 135)
 						{
 							//上
-							*down=true;//主人公の下の部分が衝突している
-					         *y=by - 64.0f;//ブロックの位置-主人公の幅
-							//種類を渡すのスタートとゴールのみ変更する
+							*down = true;//主人公の下の部分が衝突している
+							*y = by - 64.0f;//ブロックの位置-主人公の幅
+						   //種類を渡すのスタートとゴールのみ変更する
 							if (m_map[i][j] >= 2)
-								*bt=m_map[i][j];//ブロックの要素（type）を主人公に渡す
-							*vy=0.0f;
+								*bt = m_map[i][j];//ブロックの要素（type）を主人公に渡す
+							*vy = 0.0f;
 						}
 						if (r > 135 && r < 225)
 						{
 							//左
-							*left=true;//主人公の下の部分が衝突している
-							*x=bx - 64.0f+(scroll);//ブロックの位置+主人公の幅
-							*vx= -(*vx)* 0.1f;//－vx*反発係数
+							*left = true;//主人公の下の部分が衝突している
+							*x = bx - 64.0f + (scroll);//ブロックの位置+主人公の幅
+							*vx = -(*vx)* 0.1f;//－vx*反発係数
 						}
 						if (r > 225 && r < 315)
 						{
 							//下
-							*up=true;//主人公の上の部分が衝突している。
+							*up = true;//主人公の上の部分が衝突している。
 							*y = by + 64.0f;;//ブロックの位置+主人公の幅
-							if (*vy<0)
+							if (*vy < 0)
 							{
 
-								*vy=(0.0f);
+								*vy = (0.0f);
 
 							}
 
@@ -301,9 +294,9 @@ float  CObjBlock::Dot(float ax, float ay, float bx, float by)
 {
 	float t = 0.0f;
 
-		t = ax * bx + ay * by;
+	t = ax * bx + ay * by;
 
-		return t;
+	return t;
 }
 
 //外積関数
@@ -343,7 +336,7 @@ bool CObjBlock::LineCrossPoint(
 	*out_px = -99999.0f;  *out_py = -99999.0f;
 
 	//Aベクトル作成（a2←al）
-	float ax = a2x - a1x ;  float ay = a2y - a1y;
+	float ax = a2x - a1x;  float ay = a2y - a1y;
 
 	//Bベクトル作成（b2←b1)
 	float bx = b1x - a1x;  float by = b2y - b1y;
@@ -354,12 +347,12 @@ bool CObjBlock::LineCrossPoint(
 	//Dベクトル作成（ｂ2←a1）
 	float dx = b2x - a1x; float dy = b2x - a1y;
 
-    //A×Cの射影とA×Bの射影を求める
+	//A×Cの射影とA×Bの射影を求める
 	float  t1 = Cross(ax, ay, cx, cy);
 	float  t2 = Cross(ax, ay, dx, dy);
 
 	//符号が同じ方向になっているかどうかをチェック
-	if ( SGN(t1) == SGN(t2) )
+	if (SGN(t1) == SGN(t2))
 		return false;  //交点なし
 	//射影を絶対値化
 	t1 = abs(t1);   t2 = abs(t2);
@@ -403,19 +396,19 @@ bool CObjBlock::HeroBlckCrossPoint(
 	bool pb = false;       //交点確認用
 	float len = 99999.0f; //交点との距離
 	//ブロックの辺ベクトル
-	float edge[4][4]=
+	float edge[4][4] =
 	{
 
 		{0,0,64,0 },//→
-	    {64,0,64,64},//↓
-	    {64,64,0,64},//	←
-	    {0,64,0,0  },//↑
+		{64,0,64,64},//↓
+		{64,64,0,64},//	←
+		{0,64,0,0  },//↑
 
 	};
 	//m_mapの全要素にアクセス
 	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 100; j++)
+		for (int j = 0; j < 101; j++)
 		{
 			if (m_map[i][j] > 0 && m_map[i][j] != 4)
 			{
@@ -427,7 +420,7 @@ bool CObjBlock::HeroBlckCrossPoint(
 					bool b;
 					float l = 0.0f;
 					b = LineCrossPoint(x, y, x + vx, y + vy,
-						j * 64+edge[k][0], i * 64+edge[k][1], j * 64 + edge[k][2], i*64 + edge[k][3],
+						j * 64 + edge[k][0], i * 64 + edge[k][1], j * 64 + edge[k][2], i * 64 + edge[k][3],
 						&px, &py);
 					//交点チェック
 					if (b == true)
@@ -460,7 +453,6 @@ bool CObjBlock::HeroBlckCrossPoint(
 
 
 }
-
 
 
 

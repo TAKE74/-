@@ -20,10 +20,3 @@ private:
 	float B_vy;	//ボス移動ベクトルY
 };
 
-CObjBoss::CObjBoss()
-{
-}
-
-CObjBoss::~CObjBoss()
-{
-}

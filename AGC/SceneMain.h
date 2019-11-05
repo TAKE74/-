@@ -14,6 +14,6 @@ public:
 	void InitScene();//初期化メッソド
 	void Scene();//実行中メソッド
 private:
-
+	int m_time;
 
 };
