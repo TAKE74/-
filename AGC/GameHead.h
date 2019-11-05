@@ -60,7 +60,6 @@ struct UserData
 #include "ObjEnemy.h"
 #include "CobjBullet.h"
 #include "ObjEnemyBoss.h"
-#include "ObjStag.h"
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------

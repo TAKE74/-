@@ -47,7 +47,7 @@ void CSceneMain::InitScene()
 	for (int i = 0; i < 10; i++)
 	{
 
-		for (int j = 0; j < 101; j++)
+		for (int j = 0; j < 100; j++)
 		{
 			int w = 0;
 			swscanf_s(&p.get()[count], L"%d", &w);
@@ -58,9 +58,8 @@ void CSceneMain::InitScene()
 	}
 
 	//グラフィック読み込み
-	Draw::LoadImageW(L"image.png", 1, TEX_SIZE_512);
-	Draw::LoadImageW(L"背景.png", 0, TEX_SIZE_512);
-
+	Draw::LoadImageW(L"image.png", 0,TEX_SIZE_512);
+	
 
 
 	//主人公オブジェクト作成
@@ -69,11 +68,8 @@ void CSceneMain::InitScene()
 
 	//ブロックオブジェクト作成
 	CObjBlock* objb = new CObjBlock(map);
-	Objs::InsertObj(objb, OBJ_BLOCK, 13);
+	Objs::InsertObj(objb, OBJ_BLOCK, 9);
 
-	//背景作成
-	CObjStag* objs = new CObjStag();
-	Objs::InsertObj(objs, OBJ_STAG, 1);
 
 }
 
