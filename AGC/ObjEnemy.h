@@ -40,5 +40,7 @@ private:
 
 	//ˆÚ“®‚ÌŒü‚«§Œä—p
 	bool m_move;
+
+	int	m_hp;//HP
 	
 };

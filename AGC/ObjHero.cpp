@@ -184,69 +184,26 @@ void CObjHero::Action()
 		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
 		&m_block_type
 	);
+
 	//自身のHitBoxをもってくる
 	CHitBox*hit = Hits::GetHitBox(this);
-	//敵と当たっているか確認
-	if (hit->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-		//敵と接触したら削除
-		if (hit->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+
+	//当たり判定を行うオブジェクト情報群
+	int data_base[4] =
+	{
+		OBJ_ENEMY,
+		OBJ_SPECIAL_ENEMY,
+		OBJ_MEDIUM_BOSS,
+		OBJ_BOSS_ENEMY,
+	};
+
+	//オブジェクト情報群と当たり判定を行い、当たっていれば削除
+	for (int i = 0; i < 2; i++)
+	{
+		if (hit->CheckObjNameHit(data_base[i]) != nullptr)
 		{
 			this->SetStatus(false);
 			Hits::DeleteHitBox(this);
-			return;
-		}
-	{
-		//主人公が敵とどの角度で当たっているかを確認
-		HIT_DATA** hit_data;
-		hit_data = hit->SearchObjNameHit(OBJ_ENEMY);
-		for (int i = 0; i < hit->GetCount(); i++)
-		{
-			//敵の左右に当たったら
-			float r = hit_data[i]->r;
-				if ((r < 45 && r >= 0) || r > 315)
-				{
-					m_vx = -5.0f;//左に移動させる
-				}
-			if (r > 135 && r < 225)
-			{
-				m_vx = +5.0f;//右に移動させる
-			}
-			if (r >= 225 && r < 315)
-			{
-				//敵の移動方向を主人公の位置に加算
-				m_px += ((CObjEnemy*)hit_data[i]->o)->GetVx();
-
-				CObjBlock* b = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
-				//後方スクロールライン
-				if (m_px < 80)
-				{
-					m_px > 300;
-					b->SetScroll(b->GetScroll() + 5.0);
-				}
-				//前方スクロールライン
-				if (m_px > 300)
-				{
-					m_px = 300;
-					b->SetScroll(b->GetScroll() - 5.0);
-
-				}
-
-				//頭に乗せる処理
-				if (m_vy < -1.0f)
-				{
-					//ジャンプしている場合は下記の影響を出さないようにする
-				}
-				else
-				{
-					//主人公が敵の頭に乗っているので、Yvecは0にして落下させない
-					//また、地面に当たっている判定にする
-					m_vy = 0.0f;
-					m_hit_down = true;
-				}
-
-
-
-			}
 		}
 	}
 	//位置の最新

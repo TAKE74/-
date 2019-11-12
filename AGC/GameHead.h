@@ -10,8 +10,10 @@ enum OBJ_NAME
 	OBJ_BLOCK,
 	OBJ_ENEMY,
 	OBJ_BULLET,
-	OBJ_BOOS_ENEMY,
+	OBJ_BOSS_ENEMY,
 	OBJ_STAG,
+	OBJ_MEDIUM_BOSS,
+	OBJ_SPECIAL_ENEMY,
 };
 //------------------------------------------------
 
@@ -31,6 +33,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
+
 };
 //------------------------------------------------
 
@@ -60,6 +63,8 @@ struct UserData
 #include "ObjEnemy.h"
 #include "CobjBullet.h"
 #include "ObjEnemyBoss.h"
+#include "CObjMediumBoss.h"
+#include "CObjSpecialEnemy.h"
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------

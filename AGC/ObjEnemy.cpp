@@ -19,6 +19,8 @@ CObjEnemy::CObjEnemy(float x, float y)
 //ƒCƒjƒVƒƒƒ‰ƒCƒY
 void CObjEnemy::Init()
 {
+
+	m_hp = 3;
 	
 	m_vx = 0.0f;//ˆÚ“®ƒxƒNƒgƒ‹
 	m_vy = 0.0f;
@@ -120,8 +122,22 @@ void CObjEnemy::Action()
 	CHitBox*hit = Hits::GetHitBox(this);
 	hit->SetPos(m_px+block->GetScroll(), m_py);
 
+
 	//’eŠÛ‚ÆÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©’²‚×‚é
 	if (hit->CheckObjNameHit(OBJ_BULLET) != nullptr)
+	{
+		this->SetStatus(false);
+		Hits::DeleteHitBox(this);
+	}
+
+	//’eŠÛ‚ÆÚG‚µ‚Ä‚¢‚½‚çHP‚ðŒ¸‚ç‚·
+	if (hit->CheckObjNameHit(OBJ_BULLET) != nullptr)
+	{
+		m_hp -= 1;
+	}
+
+	//HP‚ª‚O‚É‚È‚Á‚½‚ç”j‰ó
+	if (m_hp <= 0)
 	{
 		this->SetStatus(false);
 		Hits::DeleteHitBox(this);

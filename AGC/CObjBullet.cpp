@@ -28,20 +28,33 @@ void CObjBullet::Action()
 	b_vx + 1.0f;
 	b_x += b_vx;
 
+	//弾丸のHitBox更新用ポインター取得
+	CHitBox*hit = Hits::GetHitBox(this);
+	hit->SetPos(b_x, b_y);
+
 	//領域外に出たら弾丸を破壊する
 	if (b_x > 800.0f)
 	{
 		this->SetStatus(false);
+		Hits::DeleteHitBox(this);
 	}
-	//弾丸のHitBox更新用ポインター取得
-	CHitBox*hit = Hits::GetHitBox(this);
-	hit->SetPos(b_x, b_y);	//HitBoxの位置を弾丸の位置に更新
-
-	//敵オブジェクトと接触したら削除
-	if (hit->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	//当たり判定を行うオブジェクト情報群
+	int data_base[4] =
 	{
-		this->SetStatus(false);		//自身に削除命令を出す。
-		Hits::DeleteHitBox(this);	//弾丸が取得するHitBoxに削除する。
+		OBJ_ENEMY,
+		OBJ_SPECIAL_ENEMY,
+		OBJ_MEDIUM_BOSS,
+		OBJ_BOSS_ENEMY,
+	};
+
+	//オブジェクト情報群と当たり判定を行い、当たっていれば削除
+	for (int i = 0; i < 2; i++)
+	{
+		if (hit->CheckObjNameHit(data_base[i]) != nullptr)
+		{
+			this->SetStatus(false);
+			Hits::DeleteHitBox(this);
+		}
 	}
 }
 

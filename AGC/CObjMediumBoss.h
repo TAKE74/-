@@ -4,12 +4,12 @@
 //使用するネームスペース
 using namespace GameL;
 
-//オブジェクト：ボス戦
-class CObjBoss:public CObj
+//オブジェクト：中ボス
+class CObjMediumBoss:public CObj
 {
 public:
-	CObjBoss(float x, float y);//コントラクタ位置情報をもらう
-	~CObjBoss() {};
+	CObjMediumBoss(float x, float y);//コントラクタから情報をもらう
+	~CObjMediumBoss() {};
 	void Init();	//イニシャライズ
 	void Action();	//アクション
 	void Draw();	//ドロー
@@ -20,5 +20,5 @@ private:
 	float m_vy;	//ボス移動ベクトルY
 
 	int m_hp;	//ボスのHP
-};
 
+};

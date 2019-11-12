@@ -70,6 +70,10 @@ void CSceneMain::InitScene()
 	CObjBlock* objb = new CObjBlock(map);
 	Objs::InsertObj(objb, OBJ_BLOCK, 9);
 
+	//ボスオブジェクト作成
+	CObjBoss*obj_boss_enemy = new CObjBoss(300, 300);	//ボスオブジェクト
+	Objs::InsertObj(obj_boss_enemy, OBJ_BOSS_ENEMY, 1);	//ボスオブジェクト
+
 
 }
 
