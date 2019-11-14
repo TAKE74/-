@@ -22,6 +22,12 @@ void CObjBoss::Init()
 	m_vy = 0.0f;
 	m_hp = 20;
 
+	//blockとの衝突状態確認用
+	m_hit_up = false;
+	m_hit_down = false;
+	m_hit_left = false;
+	m_hit_right = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, 32, 32, ELEMENT_ENEMY, OBJ_BOSS_ENEMY, 1);
 }
@@ -29,6 +35,69 @@ void CObjBoss::Init()
 //アクション
 void CObjBoss::Action()
 {
+	//落下
+	if (m_py > 1000.0f)
+	{
+		;
+	}
+
+
+	//通常速度
+	m_speed_power = 0.5f;
+	m_ani_max_time = 4;
+
+	//ブロック衝突で向き変更
+	if (m_hit_left == true)
+	{
+		m_move = true;
+	}
+	if (m_hit_right == true)
+	{
+
+		m_move = false;
+	}
+
+	//方向
+	if (m_move == false)
+	{
+		m_vx += m_speed_power;
+		m_posture = 1.0f;
+		m_ani_time += 1;
+	}
+	else if (m_move == true)
+	{
+		m_vx -= m_speed_power;
+		m_posture = 0.0f;
+		m_ani_time += 1;
+	}
+
+
+	if (m_ani_time > m_ani_max_time)
+	{
+		m_ani_frame += 1;
+		m_ani_time = 0;
+	}
+
+	if (m_ani_frame == 4)
+	{
+
+		m_ani_frame = 0;
+
+	}
+
+	//摩擦
+	m_vx += -(m_vx * 0.098);
+
+	//自由落下運動
+	m_vy += 9.8 / (16.0f);
+	//ブロックタイプ検知用の変数がないためのダミー
+	int d;
+	//ブロックとの当たり判定実行
+	CObjBlock* pb = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+	pb->BlockHit(&m_px, &m_py, false,
+		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
+		&d
+	);
 	//移動方向
 	m_vx = -1.0f;
 	m_vy = 0.0f;
@@ -84,6 +153,9 @@ void CObjBoss::Draw()
 	src.m_left = 32.0f;
 	src.m_right = 64.0f;
 	src.m_bottom = 32.0f;
+
+	//ブロック情報を持ってくる
+	CObjBlock*block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
 	//表示位置の設定
 	dst.m_top = 0.0f + m_y;
