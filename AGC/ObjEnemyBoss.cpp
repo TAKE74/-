@@ -11,8 +11,8 @@ using namespace GameL;
 //コントラクタ
 CObjBoss::CObjBoss(float x, float y)
 {
-	m_x = x;
-	m_y = y;
+	m_px = x;
+	m_py = y;
 }
 
 //イニシャライズ
@@ -22,6 +22,16 @@ void CObjBoss::Init()
 	m_vy = 0.0f;
 	m_hp = 20;
 
+	m_posture = 1.0f;//右向き0.0f左1.0ｆ
+
+	m_ani_time = 0;
+	m_ani_frame = 1;//静止フレームを初期にする。
+
+	m_speed_power = 0.5f;//通常速度
+	m_ani_max_time = 4;//アニメーション間隔幅
+
+	m_move = true;//true=右　false=左
+
 	//blockとの衝突状態確認用
 	m_hit_up = false;
 	m_hit_down = false;
@@ -29,7 +39,7 @@ void CObjBoss::Init()
 	m_hit_right = false;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_x, m_y, 32, 32, ELEMENT_ENEMY, OBJ_BOSS_ENEMY, 1);
+	Hits::SetHitBox(this, m_px, m_py, 32, 32, ELEMENT_ENEMY, OBJ_BOSS_ENEMY, 1);
 }
 
 //アクション
@@ -98,6 +108,15 @@ void CObjBoss::Action()
 		&m_hit_up, &m_hit_down, &m_hit_left, &m_hit_right, &m_vx, &m_vy,
 		&d
 	);
+
+
+	//位置の最新
+	m_px += m_vx;
+	m_py += m_vy;
+
+	//ブロック情報を持ってくる
+	CObjBlock*block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
+
 	//移動方向
 	m_vx = -1.0f;
 	m_vy = 0.0f;
@@ -111,12 +130,12 @@ void CObjBoss::Action()
 	m_vy *= 1.5f;
 
 	//移動ベクトルを座標に加算する
-	m_x += m_vx;
-	m_y += m_vy;
+	m_px += m_vx;
+	m_py += m_vy;
 
 	//HitBoxの内容を更新
 	CHitBox*hit = Hits::GetHitBox(this);
-	hit->SetPos(m_x, m_y);
+	hit->SetPos(m_px, m_py);
 
 	//弾丸と接触しているかどうか調べる
 	if (hit->CheckObjNameHit(OBJ_BULLET) != nullptr)
@@ -158,10 +177,10 @@ void CObjBoss::Draw()
 	CObjBlock*block = (CObjBlock*)Objs::GetObj(OBJ_BLOCK);
 
 	//表示位置の設定
-	dst.m_top = 0.0f + m_y;
-	dst.m_left = 32.0f + m_x;
-	dst.m_right = 0.0f + m_x;
-	dst.m_bottom = 32.0f + m_y;
+	dst.m_top = 0.0f + m_py;
+	dst.m_left = 32.0f + m_px;
+	dst.m_right = 0.0f + m_px;
+	dst.m_bottom = 32.0f + m_py;
 
 	//〇番のグラフィックをsrc・dstの情報を元に描画
 	Draw::Draw(0, &src, &dst, c, 0.0f);

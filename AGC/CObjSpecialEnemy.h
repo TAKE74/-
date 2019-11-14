@@ -14,8 +14,8 @@ public:
 	void Action();	//アクション
 	void Draw();	//ドロー
 private:
-	float m_x;	//X方向の位置
-	float m_y;	//Y方向の位置
+	float m_px;	//X方向の位置
+	float m_py;	//Y方向の位置
 	float m_vx;	//移動ベクトルX
 	float m_vy;	//移動ベクトルY
 	float m_posture;//姿勢
@@ -32,6 +32,9 @@ private:
 	bool m_hit_down;
 	bool m_hit_left;
 	bool m_hit_right;
+
+	//移動の向き制御用
+	bool m_move;
 
 	int m_hp;	//HP
 
