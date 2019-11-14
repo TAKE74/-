@@ -56,4 +56,6 @@ private:
 	//テスト用
 	float px, py;//交点
 	bool m_f;	//弾丸の発射制御用
+
+	int m_hp;	//HP
 };

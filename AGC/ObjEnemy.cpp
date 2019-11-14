@@ -20,7 +20,7 @@ CObjEnemy::CObjEnemy(float x, float y)
 void CObjEnemy::Init()
 {
 
-	m_hp = 3;
+	m_hp = 3;	//HP
 	
 	m_vx = 0.0f;//ˆÚ“®ƒxƒNƒgƒ‹
 	m_vy = 0.0f;
@@ -136,7 +136,7 @@ void CObjEnemy::Action()
 		m_hp -= 1;
 	}
 
-	//HP‚ª‚O‚É‚È‚Á‚½‚ç”j‰ó
+	//HP‚ª0‚É‚È‚Á‚½‚ç”j‰ó
 	if (m_hp <= 0)
 	{
 		this->SetStatus(false);

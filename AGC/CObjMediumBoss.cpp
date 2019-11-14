@@ -20,7 +20,7 @@ void CObjMediumBoss::Init()
 {
 	m_vx - 0.0f;
 	m_vy = 0.0f;
-	m_hp = 10;
+	m_hp = 10;		//HP
 
 	m_posture = 1.0f;//‰EŒü‚«0.0f¶1.0‚†
 

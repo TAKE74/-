@@ -24,6 +24,8 @@ void CObjHero::Init()
 	m_speed_power = 0.5f;//通常速度
     m_ani_max_time = 4;//アニメーション間隔幅
 
+	m_hp = 10;	//HP
+
 	
 
 	//blockとの衝突状態確認用
@@ -37,6 +39,8 @@ void CObjHero::Init()
 	 //当たり判定用のHitBoxを作成
 	 Hits::SetHitBox(this, m_px, m_py, 64, 64, ELEMENT_PLAYER, OBJ_HERO, 1);
 	 m_f = true;
+
+
 }
 //アクション
 void CObjHero::Action()
@@ -197,10 +201,17 @@ void CObjHero::Action()
 		OBJ_BOSS_ENEMY,
 	};
 
-	//オブジェクト情報群と当たり判定を行い、当たっていれば削除
+	//オブジェクト情報群と当たり判定を行い、当たっていればHPを減らす
 	for (int i = 0; i < 2; i++)
 	{
 		if (hit->CheckObjNameHit(data_base[i]) != nullptr)
+
+			{
+				m_hp -= 1;
+			}
+
+		//HPが０になったら破壊
+		if (m_hp <= 0)
 		{
 			this->SetStatus(false);
 			Hits::DeleteHitBox(this);
